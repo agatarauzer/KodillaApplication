@@ -28,7 +28,6 @@ public class DbServiceTest {
     @Mock
     private TaskRepository taskRepository;
 
-
     @Test
     public void getAllTasksTest() {
         //Given
@@ -81,6 +80,5 @@ public class DbServiceTest {
 
         //Then
         verify(taskRepository, times(1)).deleteById(1L);
-
     }
 }

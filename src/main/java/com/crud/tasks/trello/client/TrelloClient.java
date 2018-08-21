@@ -53,8 +53,11 @@ public class TrelloClient {
     }
 
     public CreatedTrelloCardDto createNewCard(TrelloCardDto trelloCardDto) {
+        return restTemplate.postForObject(buildURLToCreateNewCard(trelloCardDto), null, CreatedTrelloCardDto.class);
+    }
 
-        URI url = UriComponentsBuilder.fromHttpUrl(trelloConfig.getTrelloApiEndpoint() + "/cards")
+    private URI buildURLToCreateNewCard(TrelloCardDto trelloCardDto) {
+        return UriComponentsBuilder.fromHttpUrl(trelloConfig.getTrelloApiEndpoint() + "/cards")
                 .queryParam("key", trelloConfig.getTrelloAppKey())
                 .queryParam("token", trelloConfig.getTrelloToken())
                 .queryParam("name", trelloCardDto.getName())
@@ -64,7 +67,5 @@ public class TrelloClient {
                 .build()
                 .encode()
                 .toUri();
-
-        return restTemplate.postForObject(url, null, CreatedTrelloCardDto.class);
     }
 }
